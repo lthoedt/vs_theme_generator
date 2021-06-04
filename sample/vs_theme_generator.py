@@ -2,9 +2,6 @@
 import os
 import re
 import json
-from pynput import keyboard
-
-loop = False
 
 class FileManager:
     def __init__(self):
@@ -12,8 +9,8 @@ class FileManager:
         self.openSourceFile()
         self.createGeneratedFile()
         self.getStyles()
-        loop = True
-    
+        self.generateFile()
+
     def openSourceFile(self):
         self.sourceFile = open(self.sourcePath).read();
 
@@ -48,6 +45,7 @@ class FileManager:
 
         generatedFile.close()
         print("File generated!")
+        print("")
 
     def createDir(self, path):
         # create directory if it doesnt exist
@@ -56,44 +54,11 @@ class FileManager:
 
 fileManager = FileManager()
 
-# def on_press(key):
-#     try:
-#         print('alphanumeric key {0} pressed'.format(
-#             key.char))
-#     except AttributeError:
-#         print('special key {0} pressed'.format(
-#             key))
+try:
+    while True:
+        input("Hit enter to refresh!")
 
-# def on_release(key):
-#     print('{0} released'.format(
-#         key))
-#     if key == keyboard.Key.esc:
-#         # Stop listener
-#         return False
+        fileManager.generateFile()
 
-# # Collect events until released
-# with keyboard.Listener(
-#         on_press=on_press,
-#         on_release=on_release) as listener:
-#     listener.join()
-
-# if __name__ == '__main__':
-#     try:
-#         # while loop:
-#         #     key = window.get_wch()
-
-#         #     print(key);
-
-#         #     # if key == ' ' or key == 'r':
-#         #     #     print("ce")
-#         #     #     fileManager.generateFile()
-                
-#         #     # if key == 'q' or key == 'c':
-#         #     #     break
-#         #     curses.flushinp()
-#     except KeyboardInterrupt:
-#         print('Interrupted')
-#         try:
-#             sys.exit(0)
-#         except SystemExit:
-#             os._exit(0)
+except KeyboardInterrupt:
+    print('interrupted!')
