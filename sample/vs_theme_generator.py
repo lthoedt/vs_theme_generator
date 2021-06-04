@@ -29,7 +29,7 @@ class FileManager:
         self.createDir(self.generatedDir)
 
     def getStyles(self):
-        with open(self.sourceFolder + "/styles/" + self.sourceFileName) as stylesFile:
+        with open(self.sourceFolder + "/styles.json") as stylesFile:
             self.styles = json.load(stylesFile)
         
     def updateFileWithStyles(self, file):
@@ -38,6 +38,9 @@ class FileManager:
         return file
 
     def generateFile(self):
+        self.openSourceFile()
+        self.getStyles()
+
         print("Opening generated file!")
         generatedFile = open(self.generatedURI, "w")
 
